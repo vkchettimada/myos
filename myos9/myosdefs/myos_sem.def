@@ -1,0 +1,2 @@
+MYOS_DEFINE_SEMAPHORE(s,"test apps control semaphore")
+

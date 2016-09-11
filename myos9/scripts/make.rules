@@ -1,0 +1,57 @@
+
+VPATH += $(SUBDIRS)
+
+ifneq (,$(SUBDIRS))
+	include $(patsubst %,%/makefile,$(SUBDIRS))
+endif
+
+$(LIBS): FORCE
+	$(MAKE) -C $(@D) $(@F)
+
+$(ASM:%.S=.obj/%.o): ASFLAGS += $(LOCAL_ASFLAGS)
+
+.obj/%.o: %.S
+	$(CC) $(ASFLAGS) -c -o $@ $<
+
+$(SRC:%.c=.obj/%.o): CFLAGS += $(LOCAL_CFLAGS)
+
+.obj/%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+%.a: $(ASM:%.S=.obj/%.o) $(SRC:%.c=.obj/%.o)
+	$(AR) r $@ $(ASM:%.S=.obj/%.o) $(SRC:%.c=.obj/%.o)
+
+.PHONY: release debug perfect clean
+
+release: all
+
+release: LDFLAGS += -s
+
+debug: all
+	
+debug: CFLAGS += -g
+
+perfect: all
+
+perfect: CFLAGS += -Werror
+	
+clean:
+	for item in $(dir $(LIBS)); \
+	do \
+		$(MAKE) -C $$item clean; \
+	done
+	$(RM) .depend/*.d .obj/*.o $(LIBS) $(KERNEL) $(MAPFILE)
+	rmdir -p .depend .obj
+
+.depend/%.d: %.c
+	mkdir -p .depend .obj
+	$(CC) $(CFLAGS) $(LOCAL_CFLAGS) -M -MT $(patsubst .depend/%.d, .obj/%.o, $@) -o $@ $<
+
+.depend/%.d: %.S
+	mkdir -p .depend .obj
+	$(CC) $(ASFLAGS) $(LOCAL_ASFLAGS) -M -MT $(patsubst .depend/%.d, .obj/%.o, $@) -o $@ $<
+
+FORCE:
+
+sinclude $(SRC:%.c=.depend/%.d) $(ASM:%.S=.depend/%.d) 
+
