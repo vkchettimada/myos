@@ -1,0 +1,5 @@
+MYOS_DEFINE_TASK("Console task",console_task,1024,1)
+//MYOS_DEFINE_TASK("App1 task",app1_task,1024,1)
+//MYOS_DEFINE_TASK("App2 task",app2_task,1024,1)
+//MYOS_DEFINE_TASK("App3 task",app3_task,1024,1)
+
