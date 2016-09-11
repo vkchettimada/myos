@@ -1,0 +1,8 @@
+MYOS_DEFINE_TASK("Console task",console_task,1024,1)
+MYOS_DEFINE_TASK("App1 task",app1_task,1024,1)
+MYOS_DEFINE_TASK("App2 task",app2_task,1024,1)
+MYOS_DEFINE_TASK("App3 task",app3_task,1024,1)
+MYOS_DEFINE_TASK("llist app task",app_llist_task,1024,1)
+MYOS_DEFINE_TASK("radio app task",app_radio_task,1024,1)
+MYOS_DEFINE_TASK("tone app task",app_tone_task,1024,1)
+

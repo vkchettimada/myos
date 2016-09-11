@@ -1,0 +1,3 @@
+MYOS_DEFINE_SEMAPHORE(s,"test apps control semaphore")
+MYOS_DEFINE_SEMAPHORE(sem_tone,"Tone apps play semaphore")
+
