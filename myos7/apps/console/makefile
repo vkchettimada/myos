@@ -1,0 +1,2 @@
+SRC += console.c
+
