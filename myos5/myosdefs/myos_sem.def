@@ -1,0 +1,3 @@
+MYOS_DEFINE_SEMAPHORE(sema_queue_kbd,"keyboard queue semaphore")
+MYOS_DEFINE_SEMAPHORE(s,"test sem app2 app3 control")
+
